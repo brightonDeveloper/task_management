@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      ENVIRONMENT: development
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_DATABASE: brighton_tasks
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 
+
+volumes:
+  db_data:
